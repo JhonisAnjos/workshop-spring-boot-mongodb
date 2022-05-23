@@ -27,5 +27,10 @@ public class UserService {
 	public User insert(User user) {
 		return this.userRepository.insert(user);
 	}
+	
+	public void deleteById(String id) {
+		this.findById(id);
+		this.userRepository.deleteById(id);
+	}
 
 }

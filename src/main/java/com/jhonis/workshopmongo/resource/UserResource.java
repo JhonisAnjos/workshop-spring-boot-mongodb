@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +46,11 @@ public class UserResource {
 	public UserModel insert(@RequestBody UserInput input) {
 		User user = this.userAssemmbler.convertToDomainEntity(input);
 		return this.userAssemmbler.converToModel(this.userService.insert(user));
+	}
+	
+	@DeleteMapping(path = "/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void deleteById(@PathVariable String id) {
+		this.userService.deleteById(id);
 	}
 }
