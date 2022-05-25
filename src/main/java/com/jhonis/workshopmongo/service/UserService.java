@@ -32,5 +32,9 @@ public class UserService {
 		this.findById(id);
 		this.userRepository.deleteById(id);
 	}
+	
+	public User update(User user) {
+		return this.userRepository.save(user);
+	}
 
 }

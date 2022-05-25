@@ -28,5 +28,10 @@ public class UserAssembler {
 	public User convertToDomainEntity(UserInput input) {
 		return this.modelMapper.map(input, User.class);
 	}
+	
+	public void copyToDomainEntity(UserInput input, User entity) {
+		this.modelMapper.map(input, entity);
+		
+	}
 
 }

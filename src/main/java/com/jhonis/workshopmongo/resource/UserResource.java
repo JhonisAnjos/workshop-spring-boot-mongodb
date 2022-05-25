@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -52,5 +53,13 @@ public class UserResource {
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deleteById(@PathVariable String id) {
 		this.userService.deleteById(id);
+	}
+	
+	@PutMapping(path = "/{id}")
+	@ResponseStatus(value = HttpStatus.OK)
+	public UserModel update(@RequestBody UserInput input, @PathVariable String id) {
+		User entity = this.userService.findById(id);
+		this.userAssemmbler.copyToDomainEntity(input, entity);	
+		return this.userAssemmbler.converToModel(this.userService.update(entity));
 	}
 }
