@@ -1,36 +1,25 @@
 package com.jhonis.workshopmongo.domain;
 
 import java.io.Serializable;
-import java.util.List;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Document(collection = "user")
-public class User implements Serializable {
+public class Author implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	@Include
-	@Id
 	private String id;
-	
-	private String name;
-	
-	private String email;
-	
-	@DBRef(lazy = true)
-	private List<Post> posts;
 
+	private String name;
 }

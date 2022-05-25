@@ -31,5 +31,5 @@ public class Post implements Serializable{
 	
 	private String body;
 	
-	private User author;
+	private Author author;
 }
