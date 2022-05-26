@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jhonis.workshopmongo.domain.User;
+import com.jhonis.workshopmongo.resource.assembler.PostAssembler;
 import com.jhonis.workshopmongo.resource.assembler.UserAssembler;
+import com.jhonis.workshopmongo.resource.model.PostModel;
 import com.jhonis.workshopmongo.resource.model.UserModel;
 import com.jhonis.workshopmongo.resource.model.input.UserInput;
 import com.jhonis.workshopmongo.service.UserService;
@@ -29,6 +31,9 @@ public class UserResource {
 
 	@Autowired
 	private UserAssembler userAssemmbler;
+	
+	@Autowired
+	private PostAssembler postAssembler;
 
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
@@ -61,5 +66,11 @@ public class UserResource {
 		User entity = this.userService.findById(id);
 		this.userAssemmbler.copyToDomainEntity(input, entity);	
 		return this.userAssemmbler.converToModel(this.userService.update(entity));
+	}
+	
+	@GetMapping(path = "/{id}/posts")
+	public List<PostModel> findPostsByUserId(@PathVariable String id){
+		User user = this.userService.findById(id);
+		return this.postAssembler.convertToModelList(user.getPosts());
 	}
 }
